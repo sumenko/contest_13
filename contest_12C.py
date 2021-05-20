@@ -5,19 +5,34 @@ class Node:
 
 # delete
 def solution(node, idx) -> Node:
-    pass
-    # while node:
-    #     print(node.value)
-    #     node = node.next_item
+    if idx == 0: 
+        return node.next_item
+    head = node
+    idx-=1
+    while idx:
+        node = node.next_item
+        idx -= 1
+    if node.next_item:
+        node.next_item = node.next_item.next_item
+        return head
+    return None
 
+def print_nodes(node) -> None:
+    while node:
+        print(node.value, end=' ')
+        node = node.next_item
+    print()
 
+if __name__ == '__main__':
+    n = Node('5')
+    n1 = Node('4', n)
+    n2 = Node('3', n1)
+    n3 = Node('2', n2)
+    n4 = Node('1', n3)
+    n5 = Node('0', n4)
 
-
-n = Node('16')
-n1 = Node('sdfsf', n)
-n2 = Node('aaaa1', n1)
-n3 = Node('aaaa2', n2)
-n4 = Node('aaaa3', n3)
-n5 = Node('aaaa4', n4)
-
-solution(n5)
+    print_nodes(n5)
+    idx = 3
+    delete = solution(n5, idx)
+    print('idx=', idx)
+    print_nodes(delete)
