@@ -1,5 +1,9 @@
+# Транспонирование матрицы
+
 
 def transpos(n, m, source):
+    # инициализация двумерного массива
+    
     t = [['' for _ in range(n)] for _ in range(m)]
     for row in range(n):
         for col in range(m):

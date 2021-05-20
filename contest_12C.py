@@ -1,3 +1,7 @@
+# Удаление элемента односвязного списка
+# ответ: solution возвращает голову списка с удаленным элементом
+
+
 class Node:  
     def __init__(self, value, next_item=None):  
         self.value = value  
