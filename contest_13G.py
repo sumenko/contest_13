@@ -43,6 +43,10 @@ class StackMax():
 
 if __name__=='__main__':
     stack = StackMax()
+    test_case = ('push 10', 'push 10', 'push 10', 'push 1', 
+                 'push -0100', 'push -4', 'push 0', 'push 0',
+                 'push 0', 'get_max', 'pop', 'get_max', 'get_max', 
+                 'pop', 'pop', 'get_max', 'pop', 'pop', 'pop', 'pop', 'get_max')
     # with open('input.txt', 'w') as outp:
     #     n = 99999
     #     outp.write(f'{n}\n')
@@ -53,14 +57,15 @@ if __name__=='__main__':
     #     for i in range(n):
     #         outp.write(f'get_max\n')
     # start = time.time()
-    for n in range(100):
-        stack.command(input())
+    for test in test_case:
+        print(stack.items, stack.max_items)
+        stack.command(test)
     
-    with open('input.txt', 'r') as inp:
-        n = int(inp.readline())
-        lines = inp.readlines()
-        for i in range(n):
-            stack.command(lines[i])
+    # with open('input.txt', 'r') as inp:
+    #     n = int(inp.readline())
+    #     lines = inp.readlines()
+    #     for i in range(n):
+    #         stack.command(lines[i])
 
     # end = time.time()
     # print('Finished at {:.2} s'.format(end-start))
