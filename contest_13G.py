@@ -1,9 +1,8 @@
-import time
+# import time
 
 class StackMax():
     def __init__(self):
         self.items = []
-        self.max_item = None
         self.max_items = []
 
     def command(self, cmd):
@@ -14,34 +13,32 @@ class StackMax():
             return
 
         if length and parsed[0] == 'get_max':
-            print(self.max_item)
+            print(self.get_max())
             return
         
         if length and parsed[0] == 'pop':
             self.pop()
     
+    def get_max(self):
+        if self.items != []:
+            return self.max_items[-1]
+
+        return None
+
     def pop(self):
         try:
-            self.items.pop()
+            item = self.items.pop()
+            if item == self.max_items[-1]:
+                self.max_items.pop()
         except IndexError:
             print('error')
-
-        try:
-            self.max_item = max(self.items)
-        except ValueError:
-            self.max_item = None
+            return
 
     def push(self, i):
         self.items.append(i)
-        
-        if self.max_items:
+        length_max = len(self.max_items)
+        if length_max == 0 or (length_max > 0 and i > self.max_items[-1]):
             self.max_items.append(i)
-            return
-
-        if i > self.max_items[-1]:
-            self.max_items.append(i)
-            return
-
 
 
 if __name__=='__main__':
@@ -55,12 +52,15 @@ if __name__=='__main__':
     #         outp.write(f'pop\n')
     #     for i in range(n):
     #         outp.write(f'get_max\n')
-    start = time.time()
+    # start = time.time()
+    for n in range(100):
+        stack.command(input())
+    
     with open('input.txt', 'r') as inp:
         n = int(inp.readline())
         lines = inp.readlines()
         for i in range(n):
             stack.command(lines[i])
 
-    end = time.time()
-    print('Finished at {:.2} s'.format(end-start))
+    # end = time.time()
+    # print('Finished at {:.2} s'.format(end-start))
