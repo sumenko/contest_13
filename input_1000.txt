@@ -46,6 +46,10 @@ push 43
 push 44
 push 45
 push 46
+pop
+pop
+pop
+get_max
 push 47
 push 48
 push 49

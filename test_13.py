@@ -3,6 +3,7 @@ from io import StringIO  # для тестирования вывода
 from typing import Callable, List
 from unittest.mock import patch  # для тестирования вывода
 from contest_13G import main as main_task_g
+from contest_13G import run_file
 
 class Sprint13TestCase(unittest.TestCase):
     def _assert_correct_output(
@@ -34,7 +35,7 @@ class Sprint13TestCase(unittest.TestCase):
     def test_task_g(self):
         tests = (
             (
-                'Пример 1',
+                'Тест 1',
                 """10
 pop
 pop
@@ -52,7 +53,7 @@ error
 None
 """
             ), (
-                'Пример 2',
+                'Тест 2',
                 """10
 get_max
 push -6
@@ -69,12 +70,105 @@ error
 None
 2
 """
-            )
+            ), (
+                'Test 7',
+            """50
+get_max
+pop
+push -7
+pop
+get_max
+get_max
+get_max
+get_max
+push 1
+get_max
+get_max
+push 3
+pop
+pop
+get_max
+get_max
+get_max
+push -3
+get_max
+get_max
+push 0
+push 9
+get_max
+get_max
+pop
+get_max
+push 4
+get_max
+get_max
+push -3
+push -4
+get_max
+push 9
+push 9
+pop
+pop
+push -1
+push -4
+push 3
+push 10
+pop
+get_max
+get_max
+pop
+push -9
+get_max
+pop
+get_max
+pop
+pop
+""",
+        """None
+error
+None
+None
+None
+None
+1
+1
+None
+None
+None
+-3
+-3
+9
+9
+0
+4
+4
+4
+4
+4
+4
+4
+"""), (
+        'My_case',
+        """10
+push 10000
+get_max
+pop
+get_max
+push 10
+push -10
+push 10
+pop
+get_max
+""", """10000
+None
+10
+""")
         )
         for name, inp, res in tests:
+            print('Test:', name)
             self._assert_correct_output(
                 name, 'contest_13G', inp.split('\n'), main_task_g, res)
-
+        
 
 if __name__ == '__main__':
     unittest.main()
