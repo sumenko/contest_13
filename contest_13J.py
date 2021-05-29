@@ -6,14 +6,63 @@
 """
 
 class ListQueue():
+    class Node():
+        def __init__(self, x, next_item = None):
+            self.value = x
+            self.next_item = next_item
+
     def __init__(self):
-        pass
+        self.queue_size = 0
+        self.tail = None
+        self.head = None
     
-    def put(self):
-        pass
+    def is_empty(self):
+        return self.queue_size == 0
+    
+    def put(self, x):
+        self.tail = self.Node(x, self.tail)
+        if self.queue_size == 0:
+            self.head = self.tail
+        self.queue_size += 1
     
     def get(self):
-        pass
+        if self.is_empty():
+            return 'error'
+        value = self.head.value
+        self.head = self.head.next_item
+        self.queue_size -= 1
+        return value
     
     def size(self):
-        pass
+        return self.queue_size
+    
+    def print(self):
+        node = self.tail
+        lst = []
+
+        while node:
+            lst.append(str(node.value))
+            node = node.next_item
+        print('>', ' '.join(lst))
+
+
+def main():
+    num = int(input())
+    if num > 1000:
+        return
+    q = ListQueue()
+    for _ in range(num):
+        q.print()
+        command = input()
+
+        if 'put' in command:
+          q.put(int(command.split()[1]))
+
+        elif 'get' in command:
+            print(q.get())
+
+        elif 'size' in command:
+            print(q.size())
+
+if __name__ == '__main__':
+    main()
