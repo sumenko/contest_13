@@ -7,9 +7,10 @@
 
 class ListQueue():
     class Node():
-        def __init__(self, x, next_item = None):
+        def __init__(self, x, next=None, prev=None):
             self.value = x
-            self.next_item = next_item
+            self.next_item = next
+            self.prev_item = prev
 
     def __init__(self):
         self.queue_size = 0
@@ -20,7 +21,8 @@ class ListQueue():
         return self.queue_size == 0
     
     def put(self, x):
-        self.tail = self.Node(x, self.tail)
+        self.tail = self.Node(x, self.tail, self.head)
+        # self.tail.prev_item = # TODO
         if self.queue_size == 0:
             self.head = self.tail
         self.queue_size += 1
