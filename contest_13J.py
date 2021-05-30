@@ -7,9 +7,9 @@
 
 class ListQueue():
     class Node():
-        def __init__(self, x, next=None, prev=None):
+        def __init__(self, x, prev=None):
             self.value = x
-            self.next_item = next
+            self.next_item = None
             self.prev_item = prev
 
     def __init__(self):
@@ -21,10 +21,12 @@ class ListQueue():
         return self.queue_size == 0
     
     def put(self, x):
-        self.tail = self.Node(x, self.tail, self.head)
-        # self.tail.prev_item = # TODO
         if self.queue_size == 0:
+            self.tail = self.Node(x)
             self.head = self.tail
+        else:
+            self.tail = self.Node(x, prev=self.tail)
+            self.tail.prev_item.next_item = self.tail
         self.queue_size += 1
     
     def get(self):
@@ -32,6 +34,7 @@ class ListQueue():
             return 'error'
         value = self.head.value
         self.head = self.head.next_item
+        self.head.prev_item = None
         self.queue_size -= 1
         return value
     
@@ -39,14 +42,25 @@ class ListQueue():
         return self.queue_size
     
     def print(self):
-        node = self.tail
+        node = self.head
         lst = []
 
         while node:
-            lst.append(str(node.value))
+            # lst.append(str(node.value))
+            print(node.value, node, node.next_item, node.prev_item)
             node = node.next_item
-        print('>', ' '.join(lst))
+        # print('>', ' '.join(lst))
 
+def test():
+    q = ListQueue()
+    q.put(1)
+    q.put(2)
+    q.put(3)
+    q.put(4)
+    q.print()
+    print(q.get())
+    print(q.get())
+    q.print()
 
 def main():
     num = int(input())
@@ -68,3 +82,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # test()
