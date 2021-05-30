@@ -34,7 +34,8 @@ class ListQueue():
             return 'error'
         value = self.head.value
         self.head = self.head.next_item
-        self.head.prev_item = None
+        if self.head:
+            self.head.prev_item = None
         self.queue_size -= 1
         return value
     
@@ -68,9 +69,7 @@ def main():
         return
     q = ListQueue()
     for _ in range(num):
-        q.print()
         command = input()
-
         if 'put' in command:
           q.put(int(command.split()[1]))
 
@@ -82,4 +81,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # test()
