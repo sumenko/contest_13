@@ -3,38 +3,59 @@ from typing import DefaultDict
 
 class Deque():
     def __init__(self, n):
-        self.queue_size = n
+        self.queue_length = n
         self.queue = [None] * n
-        self.idx_front = 0
+        self.idx_front = self.queue_length - 1
         self.idx_back = 0
         self.size = 0
 
     def is_empty(self):
-        return self.queue_size == 0
+        return self.size == 0
 
     def push_back(self, x):
-        if self.size != self.queue_size:
+        if self.size != self.queue_length:
             self.queue[self.idx_back] = x
-            self.idx_back = (self.idx_back + 1) % self.queue_size
+            self.idx_back = (self.idx_back + 1) % self.queue_length
             self.size += 1
+        else:
+            print('error')
+
 
     def pop_back(self):
         if self.size:
             self.size -= 1
-            self.idx_back = (self.idx_back - 1) % self.queue_size
+            if self.idx_back:
+                self.idx_back -= 1
+            else:
+                self.idx_back = self.queue_length - 1
+
             value = self.queue[self.idx_back]
             self.queue[self.idx_back] = None
             print(value)
             return
-        print('error')
-        # raise QueueIsEmpty('error') #QueueIsEmpty
+        print('error') # TODO сделать raise
 
     def push_front(self, x):
+        if self.size != self.queue_length:
+            self.queue[self.idx_front] = x
+            self.size += 1
 
-        pass
+            if self.idx_front:
+                self.idx_front-=1
+            else:
+                self.idx_front = self.queue_length - 1
+            return
+        print('error') # TODO сделать raise
+        
 
     def pop_front(self):
-        pass
+        if self.size:
+            self.size -= 1
+            self.idx_front = (self.idx_front + 1) % self.queue_length
+            value = self.queue[self.idx_front]
+            print(value)
+            return
+        print('error')
 
 
     def print(self):

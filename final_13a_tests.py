@@ -1,17 +1,17 @@
-tests = (
-    ('Smoke test 1',
+tests_ready = (
+    ('Test #1: 0 m and n values',
     """0
 0
 """,''),
-    ('Smoke test 2',
+    ('Test #2: wrong n value',
     """5001
 500
 """, ''), 
-    ('Smoke test 3',
+    ('Test #3: wrong m value',
     """10
 1001
 """, ''),
-    ('Smoke test 4',
+    ('Test #4: push and pop back',
     """4
 10
 push_back 100
@@ -21,6 +21,17 @@ pop_back
 """, """200
 100
 """),
+    ('Test #5: push_back overflow',
+    """4
+3
+push_back 1
+push_back 2
+push_back 3
+push_back 4
+""", """error
+""")
+)
+tests_not_ready = (
     ('Test 1',
     """4
 4
@@ -45,6 +56,6 @@ push_back 823
     """-855
 720
 844
-    """
+"""
     )
 )
