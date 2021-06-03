@@ -1,5 +1,6 @@
-from test_13 import Sprint13TestCase as test_case
 from contest_13I import main as main_13_i
+from test_13 import Sprint13TestCase as test_case
+
 
 def test_13i():
     tests = (

@@ -28,26 +28,17 @@ class Deque():
     def pop_back(self):
         if self.size:
             self.size -= 1
-            if self.__idx_back:
-                self.__idx_back -= 1
-            else:
-                self.__idx_back = self._queue_length - 1
-
+            self.__idx_back = (self.__idx_back - 1) % self._queue_length
             value = self._queue[self.__idx_back]
             self._queue[self.__idx_back] = None
             return value
-        else:
-            raise QueueIsEmpty
+        raise QueueIsEmpty
 
     def push_front(self, x):
         if self.size != self._queue_length:
             self._queue[self.__idx_front] = x
             self.size += 1
-
-            if self.__idx_front:
-                self.__idx_front -= 1
-            else:
-                self.__idx_front = self._queue_length - 1
+            self.__idx_front = (self.__idx_front - 1) % self._queue_length
         else:
             raise QueueIsFull
 
@@ -57,10 +48,8 @@ class Deque():
             self.__idx_front = (self.__idx_front + 1) % self._queue_length
             value = self._queue[self.__idx_front]
             self._queue[self.__idx_front] = None
-            # print(value)
             return value
-        else:
-            raise QueueIsEmpty
+        raise QueueIsEmpty
 
     def print(self):
         data = {'size': self.size,
