@@ -3,7 +3,6 @@ from io import StringIO  # для тестирования вывода
 from typing import Callable, List
 from unittest.mock import patch  # для тестирования вывода
 from contest_13G import main as main_task_g
-from contest_13G import run_file
 
 class Sprint13TestCase(unittest.TestCase):
     def _assert_correct_output(
