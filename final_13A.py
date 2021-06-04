@@ -1,3 +1,8 @@
+# Спринт 13. Задача A
+# Суменко В.А.
+# попытки: 51820280
+
+
 class QueueIsEmpty(Exception):
     pass
 
