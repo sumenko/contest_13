@@ -11,24 +11,23 @@ class StackIsEmpty(Exception):
 
 
 class Stack():
-    def __init__(self, size):
-        self.size = size
-        self.stack = [None] * size
-        self.idx = 0
+    class Node():
+        def __init__(self, x, next=None):
+            self.value = x
+            self.next = next
+            self.prev = None
+
+    def __init__(self):
+        self.node = None
 
     def append(self, x):
-        if self.idx == self.size:
-            raise StackIsFull
-
-        self.stack[self.idx] = x
-        self.idx += 1
+        self.node = self.Node(x, self.node)
+        self.node.prev = self.node
 
     def pop(self):
-        if self.idx:
-            self.idx -= 1
-            return self.stack[self.idx]
-        raise StackIsEmpty
-
+        value = self.node.value
+        self.node = self.node.prev
+        return value
 
 def calculator(expr):
     if expr == '':
@@ -37,7 +36,7 @@ def calculator(expr):
     task = expr.split()
 
     max_length = len(task)
-    stack = Stack(max_length)
+    stack = Stack()
 
     action = {
         '+': lambda a, b: a + b,
@@ -63,6 +62,12 @@ def main():
 
 
 if __name__ == '__main__':
+    x = Stack()
+    x.append(1)
+    x.append(2)
+    x.append(3)
+    print(x.pop())
+
     tests = (
         ('2 1 + 3 *\n', 9),
         ('7 2 + 4 * 2 +\n', 38),
