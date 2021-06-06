@@ -86,9 +86,7 @@ def main():
             if value:
                 print(value)
 
-        except QueueIsEmpty:
-            print('error')
-        except QueueIsFull:
+        except (QueueIsFull, QueueIsEmpty):
             print('error')
 
 
