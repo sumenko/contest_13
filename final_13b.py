@@ -2,6 +2,52 @@
 # Суменко В.А.
 # попытки: 51820227
 
+class StackIsFull(Exception):
+    pass
+
+
+class StackIsEmpty(Exception):
+    pass
+
+
+class Stack():
+    def __init__(self, size):
+        self.size = size
+        self.stack = [None * size]
+        self.idx = 0
+
+    def append(self, x):
+        if self.idx == self.size:
+            raise StackIsFull
+
+        self.stack[self.idx] = x
+        self.idx += 1
+
+    def pop(self):
+        if self.idx:
+            value = self.stack[self.idx]
+            self.idx -= 1
+            return value
+        raise StackIsEmpty
+
+
+# class Stack():
+#     class Node():
+#         def __init__(self, num, next=None):
+#             self.value = num
+#             self.next = next
+    
+#     def __init__(self):
+#         self.next = None
+    
+#     def push(self, num):
+#         self.next = self.Node(num, self.next)
+    
+#     def pop(self):
+#         if self.next:
+#             value = self.next.value
+
+#         return value
 
 def calculator(expr):
     if expr == '':
@@ -9,7 +55,10 @@ def calculator(expr):
 
     task = expr.split()
 
-    stack = []
+    max_length = len(task)
+    stack = Stack(max_length)
+
+    # stack = []
     action = {
         '+': lambda a, b: a + b,
         '-': lambda a, b: a - b,
