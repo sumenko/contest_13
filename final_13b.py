@@ -13,7 +13,7 @@ class StackIsEmpty(Exception):
 class Stack():
     def __init__(self, size):
         self.size = size
-        self.stack = [None * size]
+        self.stack = [None] * size
         self.idx = 0
 
     def append(self, x):
@@ -25,29 +25,10 @@ class Stack():
 
     def pop(self):
         if self.idx:
-            value = self.stack[self.idx]
             self.idx -= 1
-            return value
+            return self.stack[self.idx]
         raise StackIsEmpty
 
-
-# class Stack():
-#     class Node():
-#         def __init__(self, num, next=None):
-#             self.value = num
-#             self.next = next
-    
-#     def __init__(self):
-#         self.next = None
-    
-#     def push(self, num):
-#         self.next = self.Node(num, self.next)
-    
-#     def pop(self):
-#         if self.next:
-#             value = self.next.value
-
-#         return value
 
 def calculator(expr):
     if expr == '':
@@ -58,7 +39,6 @@ def calculator(expr):
     max_length = len(task)
     stack = Stack(max_length)
 
-    # stack = []
     action = {
         '+': lambda a, b: a + b,
         '-': lambda a, b: a - b,
@@ -72,7 +52,7 @@ def calculator(expr):
         else:
             b, a = stack.pop(), stack.pop()
             res = action[x](a, b)
-            stack.insert(0, res)
+            stack.append(res)
     result = stack.pop()
     return result
 
@@ -86,6 +66,9 @@ if __name__ == '__main__':
     tests = (
         ('2 1 + 3 *\n', 9),
         ('7 2 + 4 * 2 +\n', 38),
+        ('1 2 + 3 + 4 + 5 +', 15),
+        ('4 13 5 / +', 6),
+        ('4 2 * 4 / 25 * 2 - 12 / 500 2 * + 2 / -999 + 71 + -1 *', 426),
         ('1\n', 1),
         ('0\n', 0)
     )
