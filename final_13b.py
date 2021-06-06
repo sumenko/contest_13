@@ -1,10 +1,6 @@
 # Спринт 13. Задача B
 # Суменко В.А.
-# попытки: 51820227
-
-class StackIsFull(Exception):
-    pass
-
+# попытки: 51854851
 
 class StackIsEmpty(Exception):
     pass
@@ -12,30 +8,29 @@ class StackIsEmpty(Exception):
 
 class Stack():
     class Node():
-        def __init__(self, x, next=None):
+        def __init__(self, x, prev=None):
             self.value = x
-            self.next = next
-            self.prev = None
+            self.prev = prev
 
     def __init__(self):
         self.node = None
 
-    def append(self, x):
+    def push(self, x):
         self.node = self.Node(x, self.node)
-        self.node.prev = self.node
 
     def pop(self):
-        value = self.node.value
-        self.node = self.node.prev
-        return value
+        if self.node:
+            value = self.node.value
+            self.node = self.node.prev
+            return value
+        raise StackIsEmpty
+
 
 def calculator(expr):
     if expr == '':
         return None
 
     task = expr.split()
-
-    max_length = len(task)
     stack = Stack()
 
     action = {
@@ -47,11 +42,11 @@ def calculator(expr):
     while task:
         x = task.pop(0)
         if x not in '+-/*':
-            stack.append(int(x))
+            stack.push(int(x))
         else:
             b, a = stack.pop(), stack.pop()
             res = action[x](a, b)
-            stack.append(res)
+            stack.push(res)
     result = stack.pop()
     return result
 
@@ -62,12 +57,6 @@ def main():
 
 
 if __name__ == '__main__':
-    x = Stack()
-    x.append(1)
-    x.append(2)
-    x.append(3)
-    print(x.pop())
-
     tests = (
         ('2 1 + 3 *\n', 9),
         ('7 2 + 4 * 2 +\n', 38),

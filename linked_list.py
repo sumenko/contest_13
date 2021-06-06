@@ -1,24 +1,24 @@
 import unittest
 from unittest import TestCase
 
+
 class TestStack(TestCase):
     def test_push_pop(self):
         x = Stack()
-
-        x.push(1)
-        x.push(2)
-        x.push(3)
+        for num in (1,2,3):
+            x.push(num)
 
         with self.subTest('Test pop method'):
             for num in (3, 2, 1):
-                self.assertEqual(x.pop(), num)   
-        
+                self.assertEqual(x.pop(), num)
+
         with self.assertRaises(StackIsEmpty):
             x.pop()
 
 
 class StackIsEmpty(Exception):
     pass
+
 
 class Stack():
     class Node():
@@ -39,21 +39,13 @@ class Stack():
             return value
         raise StackIsEmpty
 
-
     def print(self):
         node = self.node
         while node:
             print(node.value)
             node = node.prev
 
+
 if __name__ == '__main__':
     unittest.main()
-    s = Stack()
 
-    s.push(1)
-    s.push(2)
-    s.push(3)
-
-    assert s.pop() == 3
-    assert s.pop() == 2
-    assert s.pop() == 1
